@@ -15,6 +15,12 @@ class RecruitApiService
         ]);
     }
 
+    /**
+     * APIから応答を取得するメソッド
+     * @param array $params API呼び出しに必要なパラメータ
+     * @return array|null API応答結果
+     * @throws \UnexpectedValueException APIから結果を取得できない場合発生
+     */
     private function getResponseFromApi(array $params)
     {
         $response = $this->client->get("gourmet/v1", [
@@ -28,6 +34,12 @@ class RecruitApiService
         return null;
     }
 
+    /**
+     * 緯度と経度を検証する方法
+     * @param float|null $lat 緯度
+     * @param float|null $lng 経度
+     * @throws \InvalidArgumentException 緯度または経度が有効範囲を外れた場合に発生
+     */
     private function validateLatitudeAndLongitude(?float $lat = null, ?float $lng = null)
     {
         if ($lat !== null && ($lat < -90 || $lat > 90)) {
@@ -38,6 +50,12 @@ class RecruitApiService
         }
     }
 
+    /**
+     * APIの呼び出しに必要なパラメータを準備するメソッド
+     * @param array $options API呼び出しに必要なパラメータ
+     * @return array API呼び出しに必要なパラメータ
+     * @throws \InvalidArgumentException パラメータが無効な場合発生
+     */
     private function prepareParams(array $options)
     {
         $params = [
